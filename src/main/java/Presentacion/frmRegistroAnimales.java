@@ -5,11 +5,14 @@
 package Presentacion;
 
 
+import administrarAnimalesSubsistema.FachadaAdministrarAnimales;
+import dto.AnimalDTO;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import objetosNegocio.Animal;
 
 /**
  *
@@ -18,19 +21,33 @@ import javax.swing.table.DefaultTableModel;
 public class frmRegistroAnimales extends javax.swing.JDialog {
 
     private int row, columna;
+    private FachadaAdministrarAnimales fachadaAnimales;
     /**
      * Creates new form frmRegistroAnimales
      */
     JButton btnEliminar = new JButton("Eliminar");
 
     public frmRegistroAnimales() {
-      
         
         initComponents();
+        this.fachadaAnimales = new FachadaAdministrarAnimales();
+        this.actualizarTablaAnimales();
         
            this.setLocationRelativeTo(null);
     
       
+    }
+     public void actualizarTablaAnimales() {
+        // Obtener la lista de todos los animales de la fachada
+        java.util.List<Animal> listaAnimales = fachadaAnimales.consultarTodosLosAnimales();
+
+        // Llenar la tabla con los datos de los animales
+        for (Animal animal : listaAnimales) {
+            Object[] datos = {animal.getNombre(), animal.getSexo(), animal.getEdad()};
+            DefaultTableModel modelo;
+            modelo = (DefaultTableModel) this.tblAnimal.getModel();
+            modelo.addRow(datos);
+        }
     }
 
     /**
@@ -232,7 +249,7 @@ public class frmRegistroAnimales extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-
+        
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
@@ -245,22 +262,23 @@ public class frmRegistroAnimales extends javax.swing.JDialog {
     }//GEN-LAST:event_txtEdadActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-       String Nombre=txtNombre.getText();
-       String Sexo="";
+        
+        String Nombre=txtNombre.getText();
+        String Sexo="";
            int Edad= Integer.parseInt(txtEdad.getText());
-if(chkHembra.isSelected()){
-     Sexo="Hembra";
-}
-if(chkMacho.isSelected()){
-     Sexo="Macho";
-}
-if(!chkMacho.isSelected() && !chkHembra.isSelected()){
-    JOptionPane.showMessageDialog(null,"No has ingresado ningun sexo");
-}
-DefaultTableModel modelo;
-modelo = (DefaultTableModel) this.tblAnimal.getModel();
-Object datos[]=new Object[] {Nombre,Edad,Sexo};
-modelo.addRow(datos);
+        if(chkHembra.isSelected()){
+             Sexo="Hembra";
+        }
+        if(chkMacho.isSelected()){
+             Sexo="Macho";
+        }
+        if(!chkMacho.isSelected() && !chkHembra.isSelected()){
+            JOptionPane.showMessageDialog(null,"No has ingresado ningun sexo");
+        }
+        DefaultTableModel modelo;
+        modelo = (DefaultTableModel) this.tblAnimal.getModel();
+        Object datos[]=new Object[] {Nombre,Edad,Sexo};
+        modelo.addRow(datos);
 
 
 
@@ -285,44 +303,7 @@ modelo.addRow(datos);
    
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmRegistroAnimales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmRegistroAnimales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmRegistroAnimales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmRegistroAnimales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //
-            }
-        });
-    }
-
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnSalir;

@@ -1,0 +1,4 @@
+objetosNegocio\Animal.class
+administrarAnimalesSubsistema\FachadaAdministrarAnimales.class
+administrarAnimalesSubsistema\ControlAdministrarAnimales.class
+dto\AnimalDTO.class
