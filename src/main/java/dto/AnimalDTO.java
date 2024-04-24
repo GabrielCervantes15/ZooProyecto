@@ -5,7 +5,6 @@
 package dto;
 
 import java.util.Objects;
-import org.bson.types.ObjectId;
 
 /**
  *
@@ -18,7 +17,7 @@ public class AnimalDTO {
      */
     public AnimalDTO() {
     }
-    private ObjectId id;
+    private int id;
     private String nombre;
     private String sexo;
     private int edad;
@@ -31,11 +30,11 @@ public class AnimalDTO {
 
   
 
-    public ObjectId getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(int id) {
         this.id = id;
     }
 
