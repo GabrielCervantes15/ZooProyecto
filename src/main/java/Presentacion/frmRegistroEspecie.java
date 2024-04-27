@@ -4,6 +4,9 @@
  */
 package Presentacion;
 
+import java.awt.event.KeyEvent;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Gabriel
@@ -15,7 +18,7 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
      */
     public frmRegistroEspecie() {
         initComponents();
-           this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -28,7 +31,7 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         txtAnimales = new javax.swing.JTextField();
         btnRegistrarAnimal = new javax.swing.JButton();
@@ -46,7 +49,7 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
         btnReiniciar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnVerificar = new javax.swing.JButton();
         txtNombreCientifico = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -61,17 +64,18 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
         jScrollPane9 = new javax.swing.JScrollPane();
         jList4 = new javax.swing.JList<>();
         jComboBox1 = new javax.swing.JComboBox<>();
+        btnInfo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton3.setBackground(new java.awt.Color(153, 255, 153));
-        jButton3.setText("Cancelar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setBackground(new java.awt.Color(153, 255, 153));
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -85,7 +89,7 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
                 .addComponent(jLabel13)
                 .addContainerGap(135, Short.MAX_VALUE))
@@ -99,7 +103,7 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
                         .addComponent(jLabel13))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jButton3)))
+                        .addComponent(btnRegresar)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -161,11 +165,11 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(153, 255, 153));
-        jButton1.setText("Verificar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnVerificar.setBackground(new java.awt.Color(153, 255, 153));
+        btnVerificar.setText("Verificar");
+        btnVerificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnVerificarActionPerformed(evt);
             }
         });
 
@@ -195,17 +199,56 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
 
         jScrollPane6.setViewportView(jList1);
 
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Carlos Garcia", "Maria Rosaura ", "Pedro Perez ", "Daniela Tapia " };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jList2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jList2KeyPressed(evt);
+            }
+        });
         jScrollPane7.setViewportView(jList2);
 
         jScrollPane8.setViewportView(jList3);
 
+        jList4.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Sabana 1", "Sabana 2", "Junga 1", "Jungla 2", "Jungla 3", "Bosque 1", "Bosque 2", "Bosque 3", "Aviario 1", "Aviario 2", "Aviario 3", "Aviario 4", "Aviario 5", "Aviario 6", " " };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jList4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jList4KeyPressed(evt);
+            }
+        });
         jScrollPane9.setViewportView(jList4);
+
+        btnInfo.setText("ver Info");
+        btnInfo.setEnabled(false);
+        btnInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(169, 169, 169)
+                .addComponent(btnInfo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(155, Short.MAX_VALUE)
+                .addComponent(btnGuardar)
+                .addGap(18, 18, 18)
+                .addComponent(btnRegistrarAnimal)
+                .addGap(35, 35, 35)
+                .addComponent(txtAnimales, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -223,7 +266,7 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
                                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtNombreCientifico, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(140, 140, 140)
-                            .addComponent(jButton1)
+                            .addComponent(btnVerificar)
                             .addGap(27, 27, 27)
                             .addComponent(btnReiniciar))
                         .addGroup(layout.createSequentialGroup()
@@ -256,25 +299,26 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(30, 30, 30)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(30, 30, 30)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
                             .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(30, 30, 30)
                             .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(20, 20, 20)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(90, 90, 90)
-                            .addComponent(btnGuardar)
-                            .addGap(88, 88, 88)
-                            .addComponent(btnRegistrarAnimal)
-                            .addGap(32, 32, 32)
-                            .addComponent(txtAnimales, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 493, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(235, 235, 235)
+                .addComponent(btnInfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegistrarAnimal)
+                    .addComponent(txtAnimales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar))
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -292,14 +336,13 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addGap(10, 10, 10)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jButton1)
+                                .addComponent(btnVerificar)
                                 .addComponent(btnReiniciar))))
                     .addGap(18, 18, 18)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(10, 10, 10)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
@@ -307,8 +350,9 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
                                     .addComponent(jLabel15))
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(14, 14, 14)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(24, 24, 24)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGap(28, 28, 28)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel3)
                         .addComponent(jLabel9)
@@ -321,27 +365,22 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addComponent(jLabel7))
                     .addGap(4, 4, 4)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(20, 20, 20)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnGuardar)
-                        .addComponent(btnRegistrarAnimal)
-                        .addComponent(txtAnimales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane8)
+                        .addComponent(jScrollPane9)
+                        .addComponent(jScrollPane6)
+                        .addComponent(jScrollPane7))
+                    .addGap(0, 59, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         frmMenu f = new frmMenu();
         f.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void txtAnimalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnimalesActionPerformed
 
@@ -349,21 +388,21 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
 
     private void btnRegistrarAnimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAnimalActionPerformed
         this.setVisible(false);
-        frmRegistroAnimales a=new frmRegistroAnimales();
+        frmRegistroAnimales a = new frmRegistroAnimales();
         a.setVisible(true);
     }//GEN-LAST:event_btnRegistrarAnimalActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
-    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
 
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
+        if (txtNombre.getText().equalsIgnoreCase("leon")) {
+            txtNombreCientifico.setText("Panthera Leo");
+            txtDescripcion.setText("es un mamífero carnívoro de la familia de los félidos y una de las cinco especies del género Panthera.");
+            btnInfo.setEnabled(true);
+        }
+    }//GEN-LAST:event_btnVerificarActionPerformed
 
     private void txtNombreCientificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreCientificoActionPerformed
 
@@ -377,14 +416,39 @@ public class frmRegistroEspecie extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtNombreKeyTyped
 
+    private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
+        frmDetalleAnimal fda = new frmDetalleAnimal();
+        fda.setVisible(true);
+    }//GEN-LAST:event_btnInfoActionPerformed
+
+    private void jList2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jList2KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Check if the pressed key is Enter
+            DefaultListModel<String> model3 = (DefaultListModel<String>) jList3.getModel();
+            model3.addElement(jList2.getSelectedValue());
+        }
+    }//GEN-LAST:event_jList2KeyPressed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void jList4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jList4KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) { // Check if the pressed key is Enter
+            DefaultListModel<String> model3 = (DefaultListModel<String>) jList1.getModel();
+            model3.addElement(jList4.getSelectedValue());
+            btnGuardar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jList4KeyPressed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnRegistrarAnimal;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnReiniciar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnVerificar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
