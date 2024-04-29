@@ -4,7 +4,7 @@
  */
 package Presentacion;
 
-import administrarItinerarios.FachadaAdministrarItinerarios;
+import administrarItinerariosSubsistema.FachadaAdministrarItinerarios;
 import objetosNegocio.Zona;
 import java.time.LocalTime;
 import java.util.ArrayList;
