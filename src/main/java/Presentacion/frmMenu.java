@@ -4,6 +4,11 @@
  */
 package Presentacion;
 import Presentacion.frmRegistroHabitad;
+import objetosNegocio.Zona;
+import java.util.List;
+import dto.GuiaDTO;
+import dto.ZonaDTO;
+import objetosNegocio.Guia;
 
 
 /**
@@ -17,6 +22,7 @@ public class frmMenu extends javax.swing.JFrame {
      */
     public frmMenu() {
         initComponents();
+        
     }
 
     /**
@@ -207,9 +213,11 @@ public class frmMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarItinerarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarItinerarioActionPerformed
- this.setVisible(false);
- frmRegistrarItinerario menu=new frmRegistrarItinerario();
-      menu.setVisible(rootPaneCheckingEnabled);
+        Zona zona = new Zona();
+        Guia guia = new Guia();
+        frmRegistrarItinerario frm = new frmRegistrarItinerario(guia.getGuias(), zona.getZonas());
+            frm.setVisible(true);
+            this.dispose(); 
     }//GEN-LAST:event_btnRegistrarItinerarioActionPerformed
 
     private void btnRegistrarHabitatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarHabitatActionPerformed

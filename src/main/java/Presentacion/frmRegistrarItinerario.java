@@ -4,29 +4,305 @@
  */
 package Presentacion;
 
+import administrarItinerarios.FachadaAdministrarItinerarios;
+import objetosNegocio.Zona;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import dto.DiasDTO;
+import dto.GuiaDTO;
+import dto.HorarioDTO;
+import dto.ItinerarioDTO;
+import dto.RecorridoDTO;
+import dto.ZonaDTO;
 
 /**
  *
  * @author diego
  */
 public class frmRegistrarItinerario extends javax.swing.JFrame {
-
+    FachadaAdministrarItinerarios fac = new FachadaAdministrarItinerarios();
+    List<GuiaDTO> guias;
+    List<ZonaDTO> zonas;
+    DefaultListModel<ZonaDTO> modeloListaZonas = new DefaultListModel<>();
+    DefaultListModel<ZonaDTO> modeloListaZonasSeleccionadas = new DefaultListModel<>();
+    DefaultListModel<GuiaDTO> modeloListaGuiasLunes = new DefaultListModel<>();
+    DefaultListModel<GuiaDTO> modeloListaGuiasMartes = new DefaultListModel<>();
+    DefaultListModel<GuiaDTO> modeloListaGuiasMiercoles = new DefaultListModel<>();
+    DefaultListModel<GuiaDTO> modeloListaGuiasJueves = new DefaultListModel<>();
+    DefaultListModel<GuiaDTO> modeloListaGuiasViernes = new DefaultListModel<>();
+    DefaultListModel<GuiaDTO> modeloListaGuiasSabado = new DefaultListModel<>();
+    DefaultListModel<GuiaDTO> modeloListaGuiasDomingo = new DefaultListModel<>();
+    
+    
+    
 
     /**
      * Creates new form frmRegistrarItinerario
      */
-    public frmRegistrarItinerario() {
+    public frmRegistrarItinerario(List<GuiaDTO> guias, List<ZonaDTO> zon) {
 
     initComponents();
+    
+        
+        listaZonas.setModel(modeloListaZonas);
+        listaZonasSeleccionadas.setModel(modeloListaZonasSeleccionadas);
+        listaLunesGuia.setModel(modeloListaGuiasLunes);
+        listaMartesGuia.setModel(modeloListaGuiasMartes);
+        listaMiercolesGuia.setModel(modeloListaGuiasMiercoles);
+        listaJuevesGuia.setModel(modeloListaGuiasJueves);
+        listaViernesGuia.setModel(modeloListaGuiasViernes);
+        listaSabadoGuia.setModel(modeloListaGuiasSabado);
+        this.guias = guias;
+        this.zonas = zon;
+        llenarDatos(guias, zonas);
+
+    }
+    public void llenarDatos(List<GuiaDTO> lg, List<ZonaDTO> lz) {
+        modeloListaZonas.removeAllElements();
+        modeloListaGuiasLunes.removeAllElements();
+        modeloListaGuiasMartes.removeAllElements();
+        modeloListaGuiasMiercoles.removeAllElements();
+        modeloListaGuiasJueves.removeAllElements();
+        modeloListaGuiasViernes.removeAllElements();
+        modeloListaGuiasSabado.removeAllElements();
+        for (ZonaDTO zona : lz) {
+            
+            if (modeloListaZonasSeleccionadas.contains(zona)) {
+                
+            }else{
+              modeloListaZonas.addElement(zona);  
+            }
+           
+        }
+        for (GuiaDTO guia : lg) {
+            if (cbLunes.isSelected()) {
+                modeloListaGuiasLunes.addElement(guia);
+                tfLunes.setEnabled(true);
+            } else {
+                tfLunes.setText("");
+                tfLunes.setEnabled(false);
+            }
+            if (cbMartes.isSelected()) {
+                modeloListaGuiasMartes.addElement(guia);
+                tfMartes.setEnabled(true);
+            } else {
+                tfMartes.setText("");
+                tfMartes.setEnabled(false);
+            }
+            if (cbMiercoles.isSelected()) {
+                modeloListaGuiasMiercoles.addElement(guia);
+                tfMiercoles.setEnabled(true);
+            } else {
+                tfMiercoles.setText("");
+                tfMiercoles.setEnabled(false);
+            }
+            if (cbJueves.isSelected()) {
+                modeloListaGuiasJueves.addElement(guia);
+                tfJueves.setEnabled(true);
+            } else {
+                tfJueves.setText("");
+                tfJueves.setEnabled(false);
+            }
+            if (cbViernes.isSelected()) {
+                modeloListaGuiasViernes.addElement(guia);
+                tfViernes.setEnabled(true);
+            } else {
+                tfViernes.setText("");
+                tfViernes.setEnabled(false);
+            }
+            if (cbSabado.isSelected()) {
+                modeloListaGuiasSabado.addElement(guia);
+                tfSabado.setEnabled(true);
+            } else {
+                tfSabado.setText("");
+                tfSabado.setEnabled(false);
+            }
+
+        }
+
+    }
+    public void activarCampos() {
+        cbLunes.setEnabled(true);
+        cbMartes.setEnabled(true);
+        cbJueves.setEnabled(true);
+        cbMiercoles.setEnabled(true);
+        cbViernes.setEnabled(true);
+        cbSabado.setEnabled(true);
+        tfDuracion.setEnabled(true);
+        tfLongitud.setEnabled(true);
+        tfVisitantes.setEnabled(true);
+        btnGuarfarItinerario.setEnabled(true);
+        listaZonas.setEnabled(true);
+        listaZonasSeleccionadas.setEnabled(true);
+        listaLunesGuia.setEnabled(true);
+        listaMartesGuia.setEnabled(true);
+        listaMiercolesGuia.setEnabled(true);
+        listaJuevesGuia.setEnabled(true);
+        listaViernesGuia.setEnabled(true);
+        listaSabadoGuia.setEnabled(true);
+        
+    }
+    public void desactivarCampos() {
+        cbLunes.setEnabled(false);
+        cbMartes.setEnabled(false);
+        cbJueves.setEnabled(false);
+        cbMiercoles.setEnabled(false);
+        cbViernes.setEnabled(false);
+        cbSabado.setEnabled(false);
+        cbLunes.setSelected(false);
+        cbMartes.setSelected(false);
+        cbJueves.setSelected(false);
+        cbMiercoles.setSelected(false);
+        cbViernes.setSelected(false);
+        cbSabado.setSelected(false);
+        tfDuracion.setEnabled(false);
+        tfLongitud.setEnabled(false);
+        tfVisitantes.setEnabled(false);
+        btnGuarfarItinerario.setEnabled(false);
+        listaZonas.setEnabled(false);
+        listaZonasSeleccionadas.setEnabled(false);
+    }
+    public void limpiarCampos(){
+        tfNombre.setText("");
+        tfLongitud.setText("");
+        tfVisitantes.setText("");
+        tfDuracion.setText("");
+        tfLunes.setText("");
+        tfMartes.setText("");
+        tfMiercoles.setText("");
+        tfJueves.setText("");
+        tfViernes.setText("");
+        tfSabado.setText("");
+        llenarDatos(guias, zonas);
+    }
+
+    public void reiniciarZonas() {
+        while (!modeloListaZonasSeleccionadas.isEmpty()) {
+            modeloListaZonas.addElement(modeloListaZonasSeleccionadas.get(0));
+            modeloListaZonasSeleccionadas.remove(0);
+        }
 
     }
 
+    public void mostrarItinerario(ItinerarioDTO iti) {
+      tfVisitantes.setText(String.valueOf(iti.getMaxVisitantes()));
+      tfDuracion.setText(String.valueOf(iti.getDuracion()));
+      tfLongitud.setText(String.valueOf(iti.getLongitud()));
+        for (RecorridoDTO r :iti.getRecorridos()) {
+            if (r.getHorario().getDia().equals(DiasDTO.Lunes)) {
+                tfLunes.setText(r.getHorario().getHora());
+                modeloListaGuiasLunes.addElement(r.getGuia());
+            }
+            if (r.getHorario().getDia().equals(DiasDTO.Martes)) {
+                tfMartes.setText(r.getHorario().getHora());
+                modeloListaGuiasMartes.addElement(r.getGuia());
+            }
+            if (r.getHorario().getDia().equals(DiasDTO.Miercoles)) {
+                tfMiercoles.setText(r.getHorario().getHora());
+                modeloListaGuiasMiercoles.addElement(r.getGuia());
+            }
+            if (r.getHorario().getDia().equals(DiasDTO.Jueves)) {
+                tfJueves.setText(r.getHorario().getHora());
+                modeloListaGuiasJueves.addElement(r.getGuia());
+            }
+            if (r.getHorario().getDia().equals(DiasDTO.Viernes)) {
+                tfViernes.setText(r.getHorario().getHora());
+                modeloListaGuiasViernes.addElement(r.getGuia());
+            }
+            if (r.getHorario().getDia().equals(DiasDTO.Sabado)) {
+                tfSabado.setText(r.getHorario().getHora());
+                modeloListaGuiasSabado.addElement(r.getGuia());
+            }   
+        }
+        for (ZonaDTO c :iti.getZonasParques()) {
+             for (int i = 0; i < modeloListaZonas.size(); i++) {
+                 if (modeloListaZonas.get(i).equals(c)) {
+                     modeloListaZonasSeleccionadas.addElement(c);
+                     modeloListaZonas.remove(i);
+                 }
+             }
+ 
+         }
+        
+    }
+    public boolean validarCampos(){
+        if (tfDuracion.getText().isEmpty()||tfLongitud.getText().isEmpty()
+                ||tfNombre.getText().isEmpty()||tfVisitantes.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Espacios En blanco");
+            return false;
+        }
+        if (modeloListaZonasSeleccionadas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccione las Zonas");
+            return false;
+        }
+        if (!cbLunes.isSelected()&&!cbMartes.isSelected()&&!cbMiercoles.isSelected()
+                &&!cbJueves.isSelected()&&!cbViernes.isSelected()&&!cbSabado.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Seleccione Minimo un dia");
+            return false;
+        }
+        return true;
+    }
+    public void guardarItinerario() {
+        ItinerarioDTO itinerario = new ItinerarioDTO();
+        itinerario.setNombre(tfNombre.getText());
+        itinerario.setLongitud(Integer.parseInt(tfLongitud.getText()));
+        itinerario.setMaxVisitantes(Integer.parseInt(tfVisitantes.getText()));
+        itinerario.setDuracion(Integer.parseInt(tfDuracion.getText()));
+        List<ZonaDTO> seleccionados = new ArrayList<>();
+        for (int j = 0; j < modeloListaZonasSeleccionadas.size(); j++) {
+            seleccionados.add(modeloListaZonasSeleccionadas.get(j));
+        }
+        itinerario.setZonasParques(seleccionados);
+        List<RecorridoDTO> recorridosItinerario = new ArrayList<RecorridoDTO>();
+        if (cbLunes.isSelected()) {
+            HorarioDTO horarioLunes = new HorarioDTO(DiasDTO.Lunes, tfLunes.getText());
+            RecorridoDTO lunes = new RecorridoDTO(horarioLunes, listaLunesGuia.getSelectedValue());
+            recorridosItinerario.add(lunes);
+        }
+        if (cbMartes.isSelected()) {
+            HorarioDTO horarioMartes = new HorarioDTO(DiasDTO.Martes, tfMartes.getText());
+            RecorridoDTO martes = new RecorridoDTO(horarioMartes, listaMartesGuia.getSelectedValue());
+            recorridosItinerario.add(martes);
+        }
 
+        if (cbMiercoles.isSelected()) {
+            HorarioDTO horarioMiercoles = new HorarioDTO(DiasDTO.Miercoles, tfMiercoles.getText());
+            RecorridoDTO miercoles = new RecorridoDTO(horarioMiercoles, listaMiercolesGuia.getSelectedValue());
+            recorridosItinerario.add(miercoles);
+        }
+        if (cbJueves.isSelected()) {
+            HorarioDTO horarioJueves = new HorarioDTO(DiasDTO.Jueves, tfJueves.getText());
+            RecorridoDTO jueves = new RecorridoDTO(horarioJueves, listaJuevesGuia.getSelectedValue());
+            recorridosItinerario.add(jueves);
+        }
+
+        if (cbViernes.isSelected()) {
+            
+            HorarioDTO horarioViernes = new HorarioDTO(DiasDTO.Viernes, tfViernes.getText());
+            RecorridoDTO viernes = new RecorridoDTO(horarioViernes, listaViernesGuia.getSelectedValue());
+            recorridosItinerario.add(viernes);
+        }
+
+        if (cbSabado.isSelected()) {
+         
+            HorarioDTO horarioSabado = new HorarioDTO(DiasDTO.Sabado, tfSabado.getText());
+            RecorridoDTO sabado = new RecorridoDTO(horarioSabado, listaSabadoGuia.getSelectedValue());
+            recorridosItinerario.add(sabado);
+        }
+        itinerario.setRecorridos(recorridosItinerario);
+        if (fac.registrarItinerario(itinerario)) {
+            JOptionPane.showMessageDialog(this, "Registro Existoso", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            frmMenu f = new frmMenu();
+            f.setVisible(true);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Error al registrar", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
  
 
   
@@ -70,13 +346,21 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
         cbLunes = new javax.swing.JCheckBox();
         jLabel15 = new javax.swing.JLabel();
         btnReiniciar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listaSabadoGuia = new javax.swing.JList<>();
         jLabel20 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         tfSabado = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        listaMiercolesGuia = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listaMartesGuia = new javax.swing.JList<>();
         btnVerificar = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listaLunesGuia = new javax.swing.JList<>();
         tfMartes = new javax.swing.JTextField();
         cbSabado = new javax.swing.JCheckBox();
         tfDuracion = new javax.swing.JTextField();
@@ -84,6 +368,10 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
         tfLongitud = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        listaJuevesGuia = new javax.swing.JList<>();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        listaZonasSeleccionadas = new javax.swing.JList<>();
         jLabel14 = new javax.swing.JLabel();
         cbMiercoles = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
@@ -101,39 +389,14 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
         tfJueves = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        listaViernesGuia = new javax.swing.JList<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaZonas = new javax.swing.JList<>();
         jLabel12 = new javax.swing.JLabel();
         cbMartes = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
-        jLabel32 = new javax.swing.JLabel();
-        btnGuarfarItinerario2 = new javax.swing.JButton();
-        jLabel33 = new javax.swing.JLabel();
-        tfViernes2 = new javax.swing.JTextField();
-        jLabel34 = new javax.swing.JLabel();
-        tfVisitantes2 = new javax.swing.JTextField();
-        cbViernes2 = new javax.swing.JCheckBox();
-        tfMiercoles2 = new javax.swing.JTextField();
-        cbSabado2 = new javax.swing.JCheckBox();
-        jLabel35 = new javax.swing.JLabel();
-        tfDuracion2 = new javax.swing.JTextField();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        cbJueves2 = new javax.swing.JCheckBox();
-        tfJueves2 = new javax.swing.JTextField();
-        tfLongitud2 = new javax.swing.JTextField();
-        jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        tfSabado2 = new javax.swing.JTextField();
-        jLabel40 = new javax.swing.JLabel();
-        cbMiercoles2 = new javax.swing.JCheckBox();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList<>();
 
         jLabel23.setText("Visitantes (Max)");
 
@@ -278,7 +541,7 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62)
                 .addComponent(jLabel21)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,6 +582,9 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
             }
         });
 
+        listaSabadoGuia.setEnabled(false);
+        jScrollPane2.setViewportView(listaSabadoGuia);
+
         jLabel20.setText("Zonas Seleccionadas");
 
         jLabel19.setText("Hora inicial");
@@ -326,11 +592,17 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
         tfSabado.setPreferredSize(new java.awt.Dimension(70, 22));
         tfSabado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfLunesKeyTyped(evt);
+                tfSabadotfLunesKeyTyped(evt);
             }
         });
 
         jLabel18.setText("Hora inicial");
+
+        listaMiercolesGuia.setEnabled(false);
+        jScrollPane5.setViewportView(listaMiercolesGuia);
+
+        listaMartesGuia.setEnabled(false);
+        jScrollPane4.setViewportView(listaMartesGuia);
 
         btnVerificar.setBackground(new java.awt.Color(153, 255, 153));
         btnVerificar.setText("Verificar");
@@ -344,10 +616,13 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
 
         jLabel17.setText("Guia");
 
+        listaLunesGuia.setEnabled(false);
+        jScrollPane3.setViewportView(listaLunesGuia);
+
         tfMartes.setPreferredSize(new java.awt.Dimension(70, 22));
         tfMartes.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfLunesKeyTyped(evt);
+                tfMartestfLunesKeyTyped(evt);
             }
         });
 
@@ -390,6 +665,17 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
 
         jLabel8.setText("Hora inicial");
 
+        listaJuevesGuia.setEnabled(false);
+        jScrollPane6.setViewportView(listaJuevesGuia);
+
+        listaZonasSeleccionadas.setEnabled(false);
+        listaZonasSeleccionadas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaZonasSeleccionadasMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(listaZonasSeleccionadas);
+
         jLabel14.setText("Guia");
 
         cbMiercoles.setText("Miercoles");
@@ -419,7 +705,7 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
         tfViernes.setPreferredSize(new java.awt.Dimension(70, 22));
         tfViernes.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfLunesKeyTyped(evt);
+                tfViernestfLunesKeyTyped(evt);
             }
         });
 
@@ -444,7 +730,7 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
         tfMiercoles.setPreferredSize(new java.awt.Dimension(70, 22));
         tfMiercoles.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfLunesKeyTyped(evt);
+                tfMiercolestfLunesKeyTyped(evt);
             }
         });
 
@@ -462,13 +748,24 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
         tfJueves.setPreferredSize(new java.awt.Dimension(70, 22));
         tfJueves.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfLunesKeyTyped(evt);
+                tfJuevestfLunesKeyTyped(evt);
             }
         });
 
         jLabel9.setText("Hora inicial");
 
         jLabel7.setText("Dias de la semana");
+
+        listaViernesGuia.setEnabled(false);
+        jScrollPane7.setViewportView(listaViernesGuia);
+
+        listaZonas.setEnabled(false);
+        listaZonas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaZonasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listaZonas);
 
         jLabel12.setText("Guia");
 
@@ -485,424 +782,255 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
 
         jLabel22.setText("para activar campos");
 
-        jScrollPane2.setViewportView(jList1);
-
-        jScrollPane3.setViewportView(jList2);
-
-        jScrollPane4.setViewportView(jList3);
-
-        jLabel32.setText("Visitantes (Max)");
-
-        btnGuarfarItinerario2.setBackground(new java.awt.Color(153, 255, 153));
-        btnGuarfarItinerario2.setText("Guardar Itinerario");
-        btnGuarfarItinerario2.setEnabled(false);
-        btnGuarfarItinerario2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuarfarItinerario2ActionPerformed(evt);
-            }
-        });
-
-        jLabel33.setText("Guia");
-
-        tfViernes2.setPreferredSize(new java.awt.Dimension(70, 22));
-        tfViernes2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfViernes2tfLunesKeyTyped(evt);
-            }
-        });
-
-        jLabel34.setText("Guia");
-
-        tfVisitantes2.setEnabled(false);
-        tfVisitantes2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfVisitantes2KeyTyped(evt);
-            }
-        });
-
-        cbViernes2.setText("Viernes");
-        cbViernes2.setEnabled(false);
-        cbViernes2.setPreferredSize(new java.awt.Dimension(70, 22));
-        cbViernes2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbViernes2ActionPerformed(evt);
-            }
-        });
-
-        tfMiercoles2.setPreferredSize(new java.awt.Dimension(70, 22));
-        tfMiercoles2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfMiercoles2tfLunesKeyTyped(evt);
-            }
-        });
-
-        cbSabado2.setText("Sabado");
-        cbSabado2.setEnabled(false);
-        cbSabado2.setPreferredSize(new java.awt.Dimension(70, 22));
-        cbSabado2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSabado2ActionPerformed(evt);
-            }
-        });
-
-        jLabel35.setText("Hora inicial");
-
-        tfDuracion2.setEnabled(false);
-        tfDuracion2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfDuracion2KeyTyped(evt);
-            }
-        });
-
-        jLabel36.setText("Longitud (M)");
-
-        jLabel37.setText("Duración (min)");
-
-        cbJueves2.setText("Jueves");
-        cbJueves2.setEnabled(false);
-        cbJueves2.setPreferredSize(new java.awt.Dimension(70, 22));
-        cbJueves2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbJueves2ActionPerformed(evt);
-            }
-        });
-
-        tfJueves2.setPreferredSize(new java.awt.Dimension(70, 22));
-        tfJueves2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfJueves2tfLunesKeyTyped(evt);
-            }
-        });
-
-        tfLongitud2.setEnabled(false);
-        tfLongitud2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfLongitud2ActionPerformed(evt);
-            }
-        });
-        tfLongitud2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfLongitud2KeyTyped(evt);
-            }
-        });
-
-        jLabel38.setText("Hora inicial");
-
-        jLabel39.setText("Hora inicial");
-
-        tfSabado2.setPreferredSize(new java.awt.Dimension(70, 22));
-        tfSabado2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfSabado2tfLunesKeyTyped(evt);
-            }
-        });
-
-        jLabel40.setText("Hora inicial");
-
-        cbMiercoles2.setText("Miercoles");
-        cbMiercoles2.setEnabled(false);
-        cbMiercoles2.setPreferredSize(new java.awt.Dimension(70, 22));
-        cbMiercoles2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMiercoles2ActionPerformed(evt);
-            }
-        });
-
-        jScrollPane5.setViewportView(jList4);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(96, 96, 96)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(52, 52, 52))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel2))
-                    .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addComponent(btnVerificar)
-                .addGap(12, 12, 12)
-                .addComponent(btnReiniciar)
-                .addGap(65, 65, 65)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel22))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jLabel7))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(cbLunes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(110, 110, 110)
-                .addComponent(cbMartes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel3)
-                .addGap(31, 31, 31)
-                .addComponent(jLabel20))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel10))
-                    .addComponent(tfLunes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel15)))
-                .addGap(110, 110, 110)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(tfMartes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel14)))
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(461, 461, 461)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel37)
-                    .addComponent(jLabel4)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(451, 451, 451)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfDuracion2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbMiercoles, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbMiercoles2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel35)
-                            .addComponent(jLabel11))))
-                .addGap(100, 100, 100)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbJueves2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbJueves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel38))
-                .addGap(80, 80, 80)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel36)
-                    .addComponent(jLabel5)
-                    .addComponent(tfLongitud2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfLongitud, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel32)
-                    .addComponent(tfVisitantes, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfVisitantes2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfMiercoles, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfMiercoles2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel34))))
-                .addGap(106, 106, 106)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfJueves2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel33)
-                            .addComponent(jLabel16))))
-                .addGap(110, 110, 110)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGuarfarItinerario)
-                    .addComponent(btnGuarfarItinerario2)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbViernes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbViernes2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(120, 120, 120)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbSabado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbSabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel39)
-                    .addComponent(jLabel19))
-                .addGap(120, 120, 120)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel40)
-                    .addComponent(jLabel18)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfViernes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfViernes2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(100, 100, 100)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfSabado2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfSabado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(jLabel13)
-                .addGap(166, 166, 166)
-                .addComponent(jLabel12))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addGap(64, 64, 64))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(26, 26, 26)
+                            .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(7, 7, 7)
+                            .addComponent(btnVerificar)
+                            .addGap(12, 12, 12)
+                            .addComponent(btnReiniciar))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(130, 130, 130)
+                            .addComponent(jLabel7))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(10, 10, 10)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(80, 80, 80)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(jLabel4))
+                                .addComponent(tfDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(40, 40, 40)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cbMiercoles, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(20, 20, 20)
+                                    .addComponent(jLabel11)))
+                            .addGap(100, 100, 100)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cbJueves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9))
+                            .addGap(80, 80, 80)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(tfLongitud, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(10, 10, 10)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(tfVisitantes, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(50, 50, 50)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfMiercoles, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(20, 20, 20)
+                                    .addComponent(jLabel17)))
+                            .addGap(106, 106, 106)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(30, 30, 30)
+                                    .addComponent(jLabel16)))
+                            .addGap(110, 110, 110)
+                            .addComponent(btnGuarfarItinerario))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(10, 10, 10)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(50, 50, 50)
+                            .addComponent(cbViernes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(120, 120, 120)
+                            .addComponent(cbSabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(60, 60, 60)
+                            .addComponent(jLabel19)
+                            .addGap(120, 120, 120)
+                            .addComponent(jLabel18))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(50, 50, 50)
+                            .addComponent(tfViernes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(100, 100, 100)
+                            .addComponent(tfSabado, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(70, 70, 70)
+                            .addComponent(jLabel13)
+                            .addGap(166, 166, 166)
+                            .addComponent(jLabel12))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(10, 10, 10)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(50, 50, 50)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfLunes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(10, 10, 10)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(cbLunes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel10))))
+                                    .addGap(110, 110, 110)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cbMartes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel8)
+                                        .addComponent(tfMartes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(70, 70, 70)
+                                    .addComponent(jLabel15)
+                                    .addGap(166, 166, 166)
+                                    .addComponent(jLabel14)))
+                            .addGap(30, 30, 30)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(30, 30, 30)
+                            .addComponent(jLabel20)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(4, 4, 4)
-                        .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(btnVerificar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel22)
+                .addGap(50, 50, 50)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(422, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 19, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(1, 1, 1)
+                            .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnVerificar)
                         .addComponent(btnReiniciar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel1)
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel22)))
-                .addGap(6, 6, 6)
-                .addComponent(jLabel7)
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel20)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbLunes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbMartes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(14, 14, 14)
-                                .addComponent(tfLunes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(8, 8, 8)
-                                .addComponent(jLabel15))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(14, 14, 14)
-                                .addComponent(tfMartes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(8, 8, 8)
-                                .addComponent(jLabel14)))))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel37)
-                    .addComponent(jLabel4))
-                .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfDuracion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGap(8, 8, 8)
+                    .addComponent(jLabel7)
+                    .addGap(5, 5, 5)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel20)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(9, 9, 9)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(cbLunes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(8, 8, 8)
+                                            .addComponent(jLabel10)
+                                            .addGap(14, 14, 14)
+                                            .addComponent(tfLunes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(cbMartes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(8, 8, 8)
+                                            .addComponent(jLabel8)
+                                            .addGap(14, 14, 14)
+                                            .addComponent(tfMartes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGap(8, 8, 8)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel15)
+                                .addComponent(jLabel14)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(13, 13, 13)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(20, 20, 20)
+                            .addComponent(jLabel4)
+                            .addGap(4, 4, 4)
+                            .addComponent(tfDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(cbMiercoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbMiercoles2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel35)
-                            .addComponent(jLabel11)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbJueves2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbJueves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel38)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel36)
-                            .addComponent(jLabel5))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfLongitud2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfLongitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGap(8, 8, 8)
+                            .addComponent(jLabel11))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(cbJueves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(8, 8, 8)
+                            .addComponent(jLabel9))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addGap(4, 4, 4)
+                            .addComponent(tfLongitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel6)
-                            .addComponent(jLabel32))
-                        .addGap(4, 4, 4)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfVisitantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfVisitantes2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGap(4, 4, 4)
+                            .addComponent(tfVisitantes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(4, 4, 4)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(tfMiercoles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfMiercoles2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel34)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGap(8, 8, 8)
+                            .addComponent(jLabel17))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(tfJueves, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfJueves2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel33)
-                            .addComponent(jLabel16)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGuarfarItinerario)
-                            .addComponent(btnGuarfarItinerario2))))
-                .addGap(58, 58, 58)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbViernes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbViernes2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbSabado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbSabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel39)
-                    .addComponent(jLabel19)
-                    .addComponent(jLabel40)
-                    .addComponent(jLabel18))
-                .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfViernes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfViernes2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfSabado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfSabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel12))
-                .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(8, 8, 8)
+                            .addComponent(jLabel16))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(btnGuarfarItinerario)))
+                    .addGap(4, 4, 4)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cbViernes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbSabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(8, 8, 8)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel19)
+                        .addComponent(jLabel18))
+                    .addGap(4, 4, 4)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tfViernes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfSabado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(8, 8, 8)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel13)
+                        .addComponent(jLabel12))
+                    .addGap(4, 4, 4)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -910,76 +1038,20 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
-
-    }//GEN-LAST:event_btnVerificarActionPerformed
-
-    private void cbViernesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbViernesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbViernesActionPerformed
-
-    private void cbLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLunesActionPerformed
-       
-    }//GEN-LAST:event_cbLunesActionPerformed
-
-    private void cbMartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMartesActionPerformed
-          // TODO add your handling code here:
-    }//GEN-LAST:event_cbMartesActionPerformed
-
-    private void cbMiercolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMiercolesActionPerformed
-            // TODO add your handling code here:
-    }//GEN-LAST:event_cbMiercolesActionPerformed
-
-    private void cbJuevesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbJuevesActionPerformed
-              // TODO add your handling code here:
-    }//GEN-LAST:event_cbJuevesActionPerformed
-
-    private void cbSabadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSabadoActionPerformed
-      // TODO add your handling code here:
-    }//GEN-LAST:event_cbSabadoActionPerformed
-
-    private void tfLunesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLunesKeyTyped
-  
-    }//GEN-LAST:event_tfLunesKeyTyped
-
-    private void tfLongitudKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLongitudKeyTyped
-
-    }//GEN-LAST:event_tfLongitudKeyTyped
-
-    private void tfLongitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLongitudActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfLongitudActionPerformed
-
-    private void tfVisitantesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfVisitantesKeyTyped
-
-    }//GEN-LAST:event_tfVisitantesKeyTyped
-
-    private void tfDuracionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDuracionKeyTyped
-
-    }//GEN-LAST:event_tfDuracionKeyTyped
-
-    private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
-        
- 
-    }//GEN-LAST:event_btnReiniciarActionPerformed
-
-    private void btnGuarfarItinerarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuarfarItinerarioActionPerformed
-
-    }//GEN-LAST:event_btnGuarfarItinerarioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       frmMenu f = new frmMenu();
@@ -1039,79 +1111,199 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbMiercoles1ActionPerformed
 
-    private void btnGuarfarItinerario2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuarfarItinerario2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuarfarItinerario2ActionPerformed
+    private void cbLunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLunesActionPerformed
+        llenarDatos(guias, zonas);
+    }//GEN-LAST:event_cbLunesActionPerformed
 
-    private void tfViernes2tfLunesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfViernes2tfLunesKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfViernes2tfLunesKeyTyped
+    private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
 
-    private void tfVisitantes2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfVisitantes2KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfVisitantes2KeyTyped
+        desactivarCampos();
+        reiniciarZonas();
+        limpiarCampos();
 
-    private void cbViernes2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbViernes2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbViernes2ActionPerformed
+    }//GEN-LAST:event_btnReiniciarActionPerformed
 
-    private void tfMiercoles2tfLunesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfMiercoles2tfLunesKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfMiercoles2tfLunesKeyTyped
+    private void tfSabadotfLunesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSabadotfLunesKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == ':')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfSabadotfLunesKeyTyped
 
-    private void cbSabado2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSabado2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbSabado2ActionPerformed
+    private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
+        
+        if (!tfNombre.getText().isEmpty()) {
+            if (fac.verificarItinerario(tfNombre.getText()) != null) {
+                JOptionPane.showMessageDialog(this, "Itinerario Encontrado se mostrara la informacion de esta");
+                reiniciarZonas();
+                mostrarItinerario(fac.verificarItinerario(tfNombre.getText()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Se activaran los campos");
+                activarCampos();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese un nombre a buscar");
+        }
+    }//GEN-LAST:event_btnVerificarActionPerformed
 
-    private void tfDuracion2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDuracion2KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfDuracion2KeyTyped
+    private void tfMartestfLunesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfMartestfLunesKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == ':')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfMartestfLunesKeyTyped
 
-    private void cbJueves2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbJueves2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbJueves2ActionPerformed
+    private void cbSabadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSabadoActionPerformed
+        llenarDatos(guias, zonas);        // TODO add your handling code here:
+    }//GEN-LAST:event_cbSabadoActionPerformed
 
-    private void tfJueves2tfLunesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfJueves2tfLunesKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfJueves2tfLunesKeyTyped
+    private void tfDuracionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDuracionKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        } else {
+            String currentText = tfDuracion.getText();
+            String newText = currentText + c;
+            try {
+                int number = Integer.parseInt(newText);
+                if (number < 1 || number > 90) {
+                    evt.consume();
+                }
+            } catch (NumberFormatException ex) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_tfDuracionKeyTyped
 
-    private void tfLongitud2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLongitud2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfLongitud2ActionPerformed
+    private void tfLunesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLunesKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == ':')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfLunesKeyTyped
 
-    private void tfLongitud2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLongitud2KeyTyped
+    private void tfLongitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLongitudActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfLongitud2KeyTyped
+    }//GEN-LAST:event_tfLongitudActionPerformed
 
-    private void tfSabado2tfLunesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSabado2tfLunesKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfSabado2tfLunesKeyTyped
+    private void tfLongitudKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLongitudKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        } else {
+            String currentText = tfLongitud.getText();
+            String newText = currentText + c;
+            try {
+                int number = Integer.parseInt(newText);
+                if (number < 1 || number > 1500) {
+                    evt.consume();
+                }
+            } catch (NumberFormatException ex) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_tfLongitudKeyTyped
 
-    private void cbMiercoles2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMiercoles2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbMiercoles2ActionPerformed
+    private void listaZonasSeleccionadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaZonasSeleccionadasMouseClicked
+
+        if (evt.getClickCount() == 2) {
+            ZonaDTO selectedValue = listaZonasSeleccionadas.getSelectedValue();
+            if (selectedValue != null) {
+                modeloListaZonas.addElement(selectedValue);
+                modeloListaZonasSeleccionadas.removeElement(selectedValue);
+            }
+        }
+    }//GEN-LAST:event_listaZonasSeleccionadasMouseClicked
+
+    private void cbMiercolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMiercolesActionPerformed
+        llenarDatos(guias, zonas);        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMiercolesActionPerformed
+
+    private void btnGuarfarItinerarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuarfarItinerarioActionPerformed
+        
+        if (!validarCampos()) {
+            return;
+        }
+        guardarItinerario();
+    }//GEN-LAST:event_btnGuarfarItinerarioActionPerformed
+
+    private void tfViernestfLunesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfViernestfLunesKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == ':')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfViernestfLunesKeyTyped
+
+    private void tfVisitantesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfVisitantesKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        } else {
+            String currentText = tfVisitantes.getText();
+            String newText = currentText + c;
+            try {
+                int number = Integer.parseInt(newText);
+                if (number < 1 || number > 30) {
+                    evt.consume();
+                }
+            } catch (NumberFormatException ex) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_tfVisitantesKeyTyped
+
+    private void cbViernesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbViernesActionPerformed
+        llenarDatos(guias, zonas);        // TODO add your handling code here:
+    }//GEN-LAST:event_cbViernesActionPerformed
+
+    private void tfMiercolestfLunesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfMiercolestfLunesKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == ':')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfMiercolestfLunesKeyTyped
+
+    private void cbJuevesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbJuevesActionPerformed
+        llenarDatos(guias, zonas);        // TODO add your handling code here:
+    }//GEN-LAST:event_cbJuevesActionPerformed
+
+    private void tfJuevestfLunesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfJuevestfLunesKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == ':')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfJuevestfLunesKeyTyped
+
+    private void listaZonasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaZonasMouseClicked
+        if (evt.getClickCount() == 2) {
+            ZonaDTO selectedValue = listaZonas.getSelectedValue();
+            if (selectedValue != null) {
+                modeloListaZonasSeleccionadas.addElement(selectedValue);
+                modeloListaZonas.removeElement(selectedValue);
+            }
+        }
+    }//GEN-LAST:event_listaZonasMouseClicked
+
+    private void cbMartesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMartesActionPerformed
+        llenarDatos(guias, zonas);        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMartesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuarfarItinerario;
     private javax.swing.JButton btnGuarfarItinerario1;
-    private javax.swing.JButton btnGuarfarItinerario2;
     private javax.swing.JButton btnReiniciar;
     private javax.swing.JButton btnVerificar;
     private javax.swing.JCheckBox cbJueves;
     private javax.swing.JCheckBox cbJueves1;
-    private javax.swing.JCheckBox cbJueves2;
     private javax.swing.JCheckBox cbLunes;
     private javax.swing.JCheckBox cbMartes;
     private javax.swing.JCheckBox cbMiercoles;
     private javax.swing.JCheckBox cbMiercoles1;
-    private javax.swing.JCheckBox cbMiercoles2;
     private javax.swing.JCheckBox cbSabado;
     private javax.swing.JCheckBox cbSabado1;
-    private javax.swing.JCheckBox cbSabado2;
     private javax.swing.JCheckBox cbViernes;
     private javax.swing.JCheckBox cbViernes1;
-    private javax.swing.JCheckBox cbViernes2;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1138,54 +1330,46 @@ public class frmRegistrarItinerario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
-    private javax.swing.JList<String> jList4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JList<GuiaDTO> listaJuevesGuia;
+    private javax.swing.JList<GuiaDTO> listaLunesGuia;
+    private javax.swing.JList<GuiaDTO> listaMartesGuia;
+    private javax.swing.JList<GuiaDTO> listaMiercolesGuia;
+    private javax.swing.JList<GuiaDTO> listaSabadoGuia;
+    private javax.swing.JList<GuiaDTO> listaViernesGuia;
+    private javax.swing.JList<ZonaDTO> listaZonas;
+    private javax.swing.JList<ZonaDTO> listaZonasSeleccionadas;
     private javax.swing.JTextField tfDuracion;
     private javax.swing.JTextField tfDuracion1;
-    private javax.swing.JTextField tfDuracion2;
     private javax.swing.JTextField tfJueves;
     private javax.swing.JTextField tfJueves1;
-    private javax.swing.JTextField tfJueves2;
     private javax.swing.JTextField tfLongitud;
     private javax.swing.JTextField tfLongitud1;
-    private javax.swing.JTextField tfLongitud2;
     private javax.swing.JTextField tfLunes;
     private javax.swing.JTextField tfMartes;
     private javax.swing.JTextField tfMiercoles;
     private javax.swing.JTextField tfMiercoles1;
-    private javax.swing.JTextField tfMiercoles2;
     private javax.swing.JTextField tfNombre;
     private javax.swing.JTextField tfSabado;
     private javax.swing.JTextField tfSabado1;
-    private javax.swing.JTextField tfSabado2;
     private javax.swing.JTextField tfViernes;
     private javax.swing.JTextField tfViernes1;
-    private javax.swing.JTextField tfViernes2;
     private javax.swing.JTextField tfVisitantes;
     private javax.swing.JTextField tfVisitantes1;
-    private javax.swing.JTextField tfVisitantes2;
     // End of variables declaration//GEN-END:variables
 }
