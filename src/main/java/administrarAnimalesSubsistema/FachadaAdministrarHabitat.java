@@ -23,6 +23,9 @@ public class FachadaAdministrarHabitat {
     public List<Habitat> consultarTodasLasHabitat() {
         return controlHabitat.consultarHabitat();
     }
+    public void Agregar(Habitat habitat){
+        this.controlHabitat.agregar(habitat);
+    }
     
 
    

@@ -20,7 +20,6 @@ import objetosNegocio.Animal;
  */
 public class frmRegistroHabitat extends javax.swing.JFrame {
   private FachadaAdministrarHabitat fachadaHabitat;
-  private ControlAdministrarHabitat controlhabitat;
         
     /**
      * Creates new form ftmRegistroHabitad
@@ -29,8 +28,6 @@ public class frmRegistroHabitat extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
                 this.fachadaHabitat = new FachadaAdministrarHabitat();
-                controlhabitat=new ControlAdministrarHabitat();
-                controlhabitat.crear();
 
     }
         public void activarCampos(){
@@ -323,8 +320,10 @@ public class frmRegistroHabitat extends javax.swing.JFrame {
             String z=Habitat.getNombre(),vb=txtNombreHabitat.getText();
            
            if (z.equalsIgnoreCase(vb)) {
-                  if(Habitats!=null){
+               System.out.println(listaHabitat);
+                  if(Habitat!=null){
                 mostrarHabitat(Habitat);
+                break;
             }else{
              JOptionPane.showMessageDialog(this, "Se activaran los campos");
               activarCampos();
@@ -344,9 +343,8 @@ public class frmRegistroHabitat extends javax.swing.JFrame {
              System.out.println(nombre+clima+vegetacion+continentes);
 
         Habitat a=new Habitat(nombre,clima,vegetacion,continentes);
-        System.out.println(a);
-         ControlAdministrarHabitat z=new ControlAdministrarHabitat();
-         z.insertar(nombre,clima,vegetacion,continentes);
+        
+     fachadaHabitat.Agregar(a);
          
          
     }//GEN-LAST:event_btnRegistrarActionPerformed

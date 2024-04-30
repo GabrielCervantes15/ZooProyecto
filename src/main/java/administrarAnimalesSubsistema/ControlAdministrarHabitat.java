@@ -17,21 +17,19 @@ public class ControlAdministrarHabitat {
     private List<Habitat> habitat;
     
     public ControlAdministrarHabitat() {
-
-    }
-    public void crear (){
-                this.habitat = new ArrayList<>();
+        this.habitat = new ArrayList<>();
         // Inicialización con algunos datos de ejemplo
-        this.habitat.add(new Habitat("Habitat tierra", "Seco", "Selva caducifolia","America"));
+        this.habitat.add(new Habitat("Habitat tierra", "Seco", "Selvacaducifolia","America"));
         this.habitat.add(new Habitat("Pedro", "Humedo", "Tropical","Africa"));
    
     }
+    
     protected List<Habitat> consultarHabitat() {
         // Lógica para consultar y devolver todos los animales
         return this.habitat;
     }
-    public void insertar(String Nombre, String clima, String Vegetacion, String Continente){
-        this.habitat.add( new Habitat(Nombre,clima,  Vegetacion,  Continente));
+    public void agregar(Habitat habitat){
+        this.habitat.add(habitat);
     }
 
 }
