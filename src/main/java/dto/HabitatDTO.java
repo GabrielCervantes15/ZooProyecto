@@ -4,8 +4,10 @@
  */
 package dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import objetosNegocio.Habitat;
 import org.bson.types.ObjectId;
 
 /**
@@ -13,13 +15,16 @@ import org.bson.types.ObjectId;
  * @author Equipo 3
  */
 public class HabitatDTO {
+   
+
+    
 
     private ObjectId id;
     private String nombre;
     private String clima;
     private String vegetacion;
     private String continentes;
-
+ private List<Habitat> habitat;
     public HabitatDTO(String nombre, String clima, String vegetacion, String continentes) {
         this.nombre = nombre;
         this.clima = clima;
@@ -30,7 +35,12 @@ public class HabitatDTO {
     /**
      * Default constructor
      */
-    public HabitatDTO() {
+    public List<Habitat> getHabitat() {
+        return habitat;
+    }
+
+    public void setHabitat(List<Habitat> habitat) {
+        this.habitat = habitat;
     }
 
     public ObjectId getId() {

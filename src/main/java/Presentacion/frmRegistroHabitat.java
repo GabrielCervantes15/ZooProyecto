@@ -18,16 +18,19 @@ import objetosNegocio.Animal;
  *
  * @author Gabriel
  */
-public class frmRegistroHabitad extends javax.swing.JFrame {
+public class frmRegistroHabitat extends javax.swing.JFrame {
   private FachadaAdministrarHabitat fachadaHabitat;
+  private ControlAdministrarHabitat controlhabitat;
         
     /**
      * Creates new form ftmRegistroHabitad
      */
-    public frmRegistroHabitad() {
+    public frmRegistroHabitat() {
         initComponents();
         this.setLocationRelativeTo(null);
                 this.fachadaHabitat = new FachadaAdministrarHabitat();
+                controlhabitat=new ControlAdministrarHabitat();
+                controlhabitat.crear();
 
     }
         public void activarCampos(){
@@ -340,9 +343,10 @@ public class frmRegistroHabitad extends javax.swing.JFrame {
      String continentes=Seleccionados.getText();
              System.out.println(nombre+clima+vegetacion+continentes);
 
-        HabitatDTO a=new HabitatDTO(nombre,clima,vegetacion,continentes);
-        
-         
+        Habitat a=new Habitat(nombre,clima,vegetacion,continentes);
+        System.out.println(a);
+         ControlAdministrarHabitat z=new ControlAdministrarHabitat();
+         z.insertar(nombre,clima,vegetacion,continentes);
          
          
     }//GEN-LAST:event_btnRegistrarActionPerformed

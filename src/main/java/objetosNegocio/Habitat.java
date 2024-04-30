@@ -14,7 +14,8 @@ public class Habitat {
      * Default constructor
      */
     public Habitat() {
-       
+
+
     }
 
     /**
@@ -34,6 +35,7 @@ public class Habitat {
         this.vegetacion = vegetacion;
       
     }
+  
 
 
 
