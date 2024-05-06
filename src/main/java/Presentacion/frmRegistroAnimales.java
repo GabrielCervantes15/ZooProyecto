@@ -49,6 +49,13 @@ public class frmRegistroAnimales extends javax.swing.JDialog {
             modelo.addRow(datos);
         }
     }
+     
+
+public void LimpiarTablaAnimales() {
+     DefaultTableModel modelo;
+     modelo = (DefaultTableModel) this.tblAnimal.getModel();
+     modelo.getDataVector().removeAllElements();
+ }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -262,8 +269,7 @@ public class frmRegistroAnimales extends javax.swing.JDialog {
     }//GEN-LAST:event_txtEdadActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        
-        String Nombre=txtNombre.getText();
+       String Nombre=txtNombre.getText();
         String Sexo="";
            int Edad= Integer.parseInt(txtEdad.getText());
         if(chkHembra.isSelected()){
@@ -274,13 +280,15 @@ public class frmRegistroAnimales extends javax.swing.JDialog {
         }
         if(!chkMacho.isSelected() && !chkHembra.isSelected()){
             JOptionPane.showMessageDialog(null,"No has ingresado ningun sexo");
+        }else{
+            String nombre=txtNombre.getText();
+           
+            Animal a = new Animal(nombre, Sexo,Edad);
+
+        fachadaAnimales.Agregar(a); 
+        LimpiarTablaAnimales();
+          actualizarTablaAnimales();
         }
-        DefaultTableModel modelo;
-        modelo = (DefaultTableModel) this.tblAnimal.getModel();
-        Object datos[]=new Object[] {Nombre,Edad,Sexo};
-        modelo.addRow(datos);
-
-
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 

@@ -27,4 +27,7 @@ public class ControlAdministrarAnimales {
         // Lógica para consultar y devolver todos los animales
         return this.animales;
     }
+     public void agregar(Animal animal){
+        this.animales.add(animal);
+    }
 }
