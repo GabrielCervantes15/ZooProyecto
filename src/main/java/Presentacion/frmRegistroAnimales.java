@@ -43,7 +43,7 @@ public class frmRegistroAnimales extends javax.swing.JDialog {
 
         // Llenar la tabla con los datos de los animales
         for (Animal animal : listaAnimales) {
-            Object[] datos = {animal.getNombre(), animal.getSexo(), animal.getEdad()};
+            Object[] datos = {animal.getNombre(), animal.getEdad(), animal.getSexo()};
             DefaultTableModel modelo;
             modelo = (DefaultTableModel) this.tblAnimal.getModel();
             modelo.addRow(datos);
