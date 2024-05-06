@@ -4,7 +4,6 @@
  */
 package Presentacion;
 
-
 import dto.HabitatDTO;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -19,45 +18,46 @@ import objetosNegocio.Animal;
  * @author Gabriel
  */
 public class frmRegistroHabitat extends javax.swing.JFrame {
-  private FachadaAdministrarHabitat fachadaHabitat;
-        
+
+    private FachadaAdministrarHabitat fachadaHabitat;
+
     /**
      * Creates new form ftmRegistroHabitad
      */
     public frmRegistroHabitat() {
         initComponents();
         this.setLocationRelativeTo(null);
-                this.fachadaHabitat = new FachadaAdministrarHabitat();
+        this.fachadaHabitat = new FachadaAdministrarHabitat();
 
     }
-        public void activarCampos(){
-        btnVerificar.setEnabled(false);
+
+    public void activarCampos() {
+        btnVerificar.setEnabled(true);
         btnRegistrar.setEnabled(true);
         cmbVegetacion.setEnabled(true);
         cmbClimas.setEnabled(true);
-       
-        
+        Seleccionados.setEnabled(true);
+
     }
-    public void desactivarCampos(){
+
+    public void desactivarCampos() {
         btnVerificar.setEnabled(true);
         btnRegistrar.setEnabled(false);
         cmbVegetacion.setEnabled(false);
         cmbClimas.setEnabled(false);
         Seleccionados.setEnabled(false);
     }
-    public void mostrarHabitat(Habitat a){
+
+    public void mostrarHabitat(Habitat a) {
         JOptionPane.showMessageDialog(this, "Habitat Encontrada! se mostrara la informacion de esta");
-       
-      
-         
-         cmbClimas.setSelectedItem(a.getClima());
-         cmbVegetacion.setSelectedItem(a.getVegetacion());
-     Seleccionados.setText(a.getContinentes());
-         desactivarCampos();
-            
-        
+
+        cmbClimas.setSelectedItem(a.getClima());
+        cmbVegetacion.setSelectedItem(a.getVegetacion());
+        Seleccionados.setText(a.getContinentes());
+        desactivarCampos();
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -304,49 +304,57 @@ public class frmRegistroHabitat extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreHabitatKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-  
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
-       Habitat Habitats=new Habitat();
-  
-        
-               java.util.List<Habitat> listaHabitat = fachadaHabitat.consultarTodasLasHabitat();
+        Habitat Habitats = new Habitat();
+
+        int a = 0;
+        java.util.List<Habitat> listaHabitat = fachadaHabitat.consultarTodasLasHabitat();
 
         // Llenar la tabla con los datos de los animales
         for (Habitat Habitat : listaHabitat) {
-    
+
             System.out.println(listaHabitat);
-            String z=Habitat.getNombre(),vb=txtNombreHabitat.getText();
+            String z = Habitat.getNombre(), vb = txtNombreHabitat.getText();
+
+            if (z.equalsIgnoreCase(vb)) {
+                System.out.println(listaHabitat);
+                if (z != null) {
+                    mostrarHabitat(Habitat);
+                                        txtNombreHabitat.setEnabled(true);
+
+                    break;
+                }
            
-           if (z.equalsIgnoreCase(vb)) {
-               System.out.println(listaHabitat);
-                  if(Habitat!=null){
-                mostrarHabitat(Habitat);
-                break;
-            }else{
-             JOptionPane.showMessageDialog(this, "Se activaran los campos");
-              activarCampos();
-              txtNombreHabitat.setEnabled(false);
-            }   
-           
-       }
+
+            }
+                 a++;
+                System.out.println(a+ " "+listaHabitat.size());
+                if (a == listaHabitat.size()) {
+
+                    JOptionPane.showMessageDialog(this, "Se activaran los campos");
+                    activarCampos();
+                    txtNombreHabitat.setEnabled(false);
+
+                }
         }
-    
+
     }//GEN-LAST:event_btnVerificarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-     String nombre=txtNombreHabitat.getText();
-     String clima=(String) cmbClimas.getSelectedItem();
-     String vegetacion=(String) cmbVegetacion.getSelectedItem();
-     String continentes=Seleccionados.getText();
-             System.out.println(nombre+clima+vegetacion+continentes);
+        String nombre = txtNombreHabitat.getText();
+        String clima = (String) cmbClimas.getSelectedItem();
+        String vegetacion = (String) cmbVegetacion.getSelectedItem();
+        String continentes = Seleccionados.getText();
+        System.out.println(nombre + clima + vegetacion + continentes);
 
-        Habitat a=new Habitat(nombre,clima,vegetacion,continentes);
-        
-     fachadaHabitat.Agregar(a);
-         
-         
+        Habitat a = new Habitat(nombre, clima, vegetacion, continentes);
+
+        fachadaHabitat.Agregar(a);
+
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -355,7 +363,6 @@ public class frmRegistroHabitat extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Disponibles;
