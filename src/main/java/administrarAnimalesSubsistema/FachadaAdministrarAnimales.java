@@ -21,4 +21,7 @@ public class FachadaAdministrarAnimales {
     public List<Animal> consultarTodosLosAnimales() {
         return controlAnimales.consultarAnimales();
     }
+    public void Agregar(Animal animal){
+        this.controlAnimales.agregar(animal);
+    }
 }

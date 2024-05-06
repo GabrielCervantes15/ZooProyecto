@@ -43,13 +43,17 @@ public class frmRegistroAnimales extends javax.swing.JDialog {
 
         // Llenar la tabla con los datos de los animales
         for (Animal animal : listaAnimales) {
-            Object[] datos = {animal.getNombre(), animal.getSexo(), animal.getEdad()};
+            Object[] datos = {animal.getNombre(), animal.getEdad(),animal.getSexo()};
             DefaultTableModel modelo;
             modelo = (DefaultTableModel) this.tblAnimal.getModel();
             modelo.addRow(datos);
         }
     }
-
+ public void LimpiarTablaAnimales() {
+     DefaultTableModel modelo;
+     modelo = (DefaultTableModel) this.tblAnimal.getModel();
+     modelo.getDataVector().removeAllElements();
+ }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -249,8 +253,9 @@ public class frmRegistroAnimales extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        
-        dispose();
+        frmMenu f = new frmMenu();
+        f.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -274,12 +279,18 @@ public class frmRegistroAnimales extends javax.swing.JDialog {
         }
         if(!chkMacho.isSelected() && !chkHembra.isSelected()){
             JOptionPane.showMessageDialog(null,"No has ingresado ningun sexo");
-        }
-        DefaultTableModel modelo;
-        modelo = (DefaultTableModel) this.tblAnimal.getModel();
-        Object datos[]=new Object[] {Nombre,Edad,Sexo};
-        modelo.addRow(datos);
+        }else{
+            String nombre=txtNombre.getText();
+           
+            Animal a = new Animal(nombre, Sexo,Edad);
 
+        fachadaAnimales.Agregar(a); 
+        LimpiarTablaAnimales();
+          actualizarTablaAnimales();
+        }
+      
+
+        
 
 
     }//GEN-LAST:event_btnAgregarActionPerformed
