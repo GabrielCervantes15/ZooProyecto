@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import objetosNegocio.Animal;
 
-
 /**
  *
  * @author diego
@@ -27,9 +26,9 @@ public class frmRegistroAnimales extends javax.swing.JDialog {
      * Creates new form frmRegistroAnimales
      */
     JButton btnEliminar = new JButton("Eliminar");
-  
+
     public frmRegistroAnimales() {
-         btnEliminar.setBackground(new java.awt.Color(153, 255, 153));
+        
         initComponents();
         this.fachadaAnimales = new FachadaAdministrarAnimales();
         this.actualizarTablaAnimales();
@@ -44,23 +43,17 @@ public class frmRegistroAnimales extends javax.swing.JDialog {
 
         // Llenar la tabla con los datos de los animales
         for (Animal animal : listaAnimales) {
-            DefaultTableModel defa = (DefaultTableModel) tblAnimal.getModel();
-                 Object[] datos = new Object[defa.getColumnCount()];
-            datos[0] = animal.getNombre();
-            datos[1] = animal.getEdad();
-            datos[2] = animal.getSexo();
-            datos[3] = btnEliminar;
-            defa.addRow(datos);
+            Object[] datos = {animal.getNombre(), animal.getEdad(),animal.getSexo()};
+            DefaultTableModel modelo;
+            modelo = (DefaultTableModel) this.tblAnimal.getModel();
+            modelo.addRow(datos);
         }
     }
-     
-
-public void LimpiarTablaAnimales() {
+ public void LimpiarTablaAnimales() {
      DefaultTableModel modelo;
      modelo = (DefaultTableModel) this.tblAnimal.getModel();
      modelo.getDataVector().removeAllElements();
  }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -260,10 +253,9 @@ public void LimpiarTablaAnimales() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-frmMenu a=new frmMenu();
-        dispose();      
-        a.setVisible(true);
-       
+        frmMenu f = new frmMenu();
+        f.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -275,7 +267,8 @@ frmMenu a=new frmMenu();
     }//GEN-LAST:event_txtEdadActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-       String Nombre=txtNombre.getText();
+        
+        String Nombre=txtNombre.getText();
         String Sexo="";
            int Edad= Integer.parseInt(txtEdad.getText());
         if(chkHembra.isSelected()){
@@ -295,6 +288,10 @@ frmMenu a=new frmMenu();
         LimpiarTablaAnimales();
           actualizarTablaAnimales();
         }
+      
+
+        
+
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -303,20 +300,7 @@ frmMenu a=new frmMenu();
     }//GEN-LAST:event_chkMachoActionPerformed
 
     private void tblAnimalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAnimalMouseClicked
-    columna = tblAnimal.getColumnModel().getColumnIndexAtX(evt.getX());
-        row = evt.getY() / tblAnimal.getRowHeight();
-        if (columna <= tblAnimal.getColumnCount() && columna >= 0 && row <= tblAnimal.getRowCount() && row >= 0) {
-            Object objeto = tblAnimal.getValueAt(row, columna);
-            if (objeto instanceof JButton) {
-                ((JButton) objeto).doClick();
-                JButton botones = (JButton) objeto;
-                if (botones.equals(btnEliminar)) {
-                    
-                    LimpiarTablaAnimales();
-                    actualizarTablaAnimales();
-                }
-            }
-        }
+
     }//GEN-LAST:event_tblAnimalMouseClicked
 
     private void txtEdadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEdadKeyTyped

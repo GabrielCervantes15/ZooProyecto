@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Presentacion;
-import Presentacion.frmRegistroHabitad;
+import Presentacion.frmRegistroHabitat;
 
 
 /**
@@ -214,7 +214,7 @@ public class frmMenu extends javax.swing.JFrame {
 
     private void btnRegistrarHabitatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarHabitatActionPerformed
 this.setVisible(false);
- frmRegistroHabitad menu=new frmRegistroHabitad();
+ frmRegistroHabitat menu=new frmRegistroHabitat();
       menu.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_btnRegistrarHabitatActionPerformed
 

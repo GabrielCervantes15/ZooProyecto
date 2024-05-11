@@ -4,18 +4,58 @@
  */
 package Presentacion;
 
+import dto.HabitatDTO;
+import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import objetosNegocio.Habitat;
+import administrarAnimalesSubsistema.*;
+import javax.swing.table.DefaultTableModel;
+import objetosNegocio.Animal;
+
 /**
  *
  * @author Gabriel
  */
-public class frmRegistroHabitad extends javax.swing.JFrame {
+public class frmRegistroHabitat extends javax.swing.JFrame {
+
+    private FachadaAdministrarHabitat fachadaHabitat;
 
     /**
      * Creates new form ftmRegistroHabitad
      */
-    public frmRegistroHabitad() {
+    public frmRegistroHabitat() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.fachadaHabitat = new FachadaAdministrarHabitat();
+
+    }
+
+    public void activarCampos() {
+        btnVerificar.setEnabled(true);
+        btnRegistrar.setEnabled(true);
+        cmbVegetacion.setEnabled(true);
+        cmbClimas.setEnabled(true);
+        Seleccionados.setEnabled(true);
+
+    }
+
+    public void desactivarCampos() {
+        btnVerificar.setEnabled(true);
+        btnRegistrar.setEnabled(false);
+        cmbVegetacion.setEnabled(false);
+        cmbClimas.setEnabled(false);
+        Seleccionados.setEnabled(false);
+    }
+
+    public void mostrarHabitat(Habitat a) {
+        JOptionPane.showMessageDialog(this, "Habitat Encontrada! se mostrara la informacion de esta");
+
+        cmbClimas.setSelectedItem(a.getClima());
+        cmbVegetacion.setSelectedItem(a.getVegetacion());
+        Seleccionados.setText(a.getContinentes());
+        desactivarCampos();
+
     }
 
     /**
@@ -41,15 +81,15 @@ public class frmRegistroHabitad extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cmbVegetacion = new javax.swing.JComboBox<>();
+        cmbClimas = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        Disponibles = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        Seleccionados = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,13 +146,9 @@ public class frmRegistroHabitad extends javax.swing.JFrame {
 
         jLabel10.setText("para habilitar campos");
 
-        jScrollPane1.setViewportView(jList1);
+        cmbVegetacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tropical", "Selvatica", "Frongoso" }));
 
-        jScrollPane2.setViewportView(jList2);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbClimas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Humedo", "Seco", "Arido" }));
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 102));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -150,58 +186,61 @@ public class frmRegistroHabitad extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        Disponibles.setColumns(20);
+        Disponibles.setRows(5);
+        jScrollPane3.setViewportView(Disponibles);
+
+        Seleccionados.setColumns(20);
+        Seleccionados.setRows(5);
+        jScrollPane4.setViewportView(Seleccionados);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(227, 227, 227)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(227, 227, 227)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(23, 23, 23)
-                                        .addComponent(jLabel10))
-                                    .addComponent(jLabel9)))
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtNombreHabitat, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(btnVerificar)
-                                .addGap(20, 20, 20)
-                                .addComponent(jButton2))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jLabel3)))
-                                .addGap(165, 165, 165)
-                                .addComponent(btnRegistrar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel6))
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(23, 23, 23)
+                                .addComponent(jLabel10))
+                            .addComponent(jLabel9)))
+                    .addComponent(jLabel4)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNombreHabitat, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
+                        .addComponent(btnVerificar)
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton2))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbVegetacion, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addComponent(jLabel7))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel3)))
+                        .addGap(165, 165, 165)
+                        .addComponent(btnRegistrar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel6))
+                    .addComponent(cmbClimas, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addGap(57, 57, 57)
                             .addComponent(jLabel8))))
                 .addContainerGap(162, Short.MAX_VALUE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +266,7 @@ public class frmRegistroHabitad extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbClimas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -237,7 +276,7 @@ public class frmRegistroHabitad extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbVegetacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -246,11 +285,11 @@ public class frmRegistroHabitad extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -265,15 +304,57 @@ public class frmRegistroHabitad extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreHabitatKeyTyped
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-  
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
+        Habitat Habitats = new Habitat();
+
+        int a = 0;
+        java.util.List<Habitat> listaHabitat = fachadaHabitat.consultarTodasLasHabitat();
+
+        // Llenar la tabla con los datos de los animales
+        for (Habitat Habitat : listaHabitat) {
+
+            System.out.println(listaHabitat);
+            String z = Habitat.getNombre(), vb = txtNombreHabitat.getText();
+
+            if (z.equalsIgnoreCase(vb)) {
+                System.out.println(listaHabitat);
+                if (z != null) {
+                    mostrarHabitat(Habitat);
+                                        txtNombreHabitat.setEnabled(true);
+
+                    break;
+                }
+           
+
+            }
+                 a++;
+                System.out.println(a+ " "+listaHabitat.size());
+                if (a == listaHabitat.size()) {
+
+                    JOptionPane.showMessageDialog(this, "Se activaran los campos");
+                    activarCampos();
+                    txtNombreHabitat.setEnabled(false);
+
+                }
+        }
 
     }//GEN-LAST:event_btnVerificarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
- 
+        String nombre = txtNombreHabitat.getText();
+        String clima = (String) cmbClimas.getSelectedItem();
+        String vegetacion = (String) cmbVegetacion.getSelectedItem();
+        String continentes = Seleccionados.getText();
+        System.out.println(nombre + clima + vegetacion + continentes);
+
+        Habitat a = new Habitat(nombre, clima, vegetacion, continentes);
+
+        fachadaHabitat.Agregar(a);
+
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -282,15 +363,16 @@ public class frmRegistroHabitad extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea Disponibles;
+    private javax.swing.JTextArea Seleccionados;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnVerificar;
+    private javax.swing.JComboBox<String> cmbClimas;
+    private javax.swing.JComboBox<String> cmbVegetacion;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -301,11 +383,9 @@ public class frmRegistroHabitad extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField txtNombreHabitat;
     // End of variables declaration//GEN-END:variables

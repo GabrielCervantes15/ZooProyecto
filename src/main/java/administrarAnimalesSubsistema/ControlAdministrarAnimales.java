@@ -8,6 +8,7 @@ import dto.AnimalDTO;
 import java.util.ArrayList;
 import java.util.List;
 import objetosNegocio.Animal;
+import objetosNegocio.Habitat;
 
 /**
  *
