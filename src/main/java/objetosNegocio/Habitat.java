@@ -21,7 +21,7 @@ public class Habitat {
     /**
      * 
      */
-    private ObjectId id;
+    public ObjectId id;
     private String nombre;
     private String clima;
     private String vegetacion;

@@ -4,12 +4,12 @@
  */
 package Presentacion;
 
+import Persistencia.FachadaAdministrarHabitat;
 import dto.HabitatDTO;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import objetosNegocio.Habitat;
-import administrarAnimalesSubsistema.*;
 import javax.swing.table.DefaultTableModel;
 import objetosNegocio.Animal;
 

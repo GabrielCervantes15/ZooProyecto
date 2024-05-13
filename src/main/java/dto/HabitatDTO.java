@@ -17,32 +17,64 @@ import org.bson.types.ObjectId;
 public class HabitatDTO {
    
 
-    
-
+        public HabitatDTO() {
+        this.continentes = new ArrayList<>();
+        this.habitatOcupada =new ArrayList<>();
+    }
     private ObjectId id;
     private String nombre;
-    private String clima;
-    private String vegetacion;
-    private String continentes;
- private List<Habitat> habitat;
-    public HabitatDTO(String nombre, String clima, String vegetacion, String continentes) {
+    private ClimaDTO clima;
+    private VegetacionDTO vegetacion;
+    private List<ContinenteDTO> continentes;
+    private List<HabitatOcupadaDTO> habitatOcupada;
+
+    public HabitatDTO(String nombre, ClimaDTO clima, VegetacionDTO vegetacion) {
         this.nombre = nombre;
         this.clima = clima;
+        this.continentes = new ArrayList<>();
         this.vegetacion = vegetacion;
+        this.habitatOcupada =new ArrayList<>();
+    }
+
+    public List<HabitatOcupadaDTO> getHabitatOcupada() {
+        return habitatOcupada;
+    }
+
+    public void setHabitatOcupada(List<HabitatOcupadaDTO> habitatOcupada) {
+        this.habitatOcupada = habitatOcupada;
+    }
+
+   
+    public HabitatDTO(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public ClimaDTO getClima() {
+        return clima;
+    }
+
+    public void setClima(ClimaDTO clima) {
+        this.clima = clima;
+    }
+
+    public VegetacionDTO getVegetacion() {
+        return vegetacion;
+    }
+
+    public void setVegetacion(VegetacionDTO vegetacion) {
+        this.vegetacion = vegetacion;
+    }
+    
+
+
+
+    public List<ContinenteDTO> getContinentes() {
+        return continentes;
+    }
+
+    public void setContinentes(List<ContinenteDTO> continentes) {
         this.continentes = continentes;
     }
-
-    /**
-     * Default constructor
-     */
-    public List<Habitat> getHabitat() {
-        return habitat;
-    }
-
-    public void setHabitat(List<Habitat> habitat) {
-        this.habitat = habitat;
-    }
-
     public ObjectId getId() {
         return id;
     }
@@ -50,6 +82,7 @@ public class HabitatDTO {
     public void setId(ObjectId id) {
         this.id = id;
     }
+
 
     public String getNombre() {
         return nombre;
@@ -59,34 +92,10 @@ public class HabitatDTO {
         this.nombre = nombre;
     }
 
-    public String getClima() {
-        return clima;
-    }
-
-    public void setClima(String clima) {
-        this.clima = clima;
-    }
-
-    public String getVegetacion() {
-        return vegetacion;
-    }
-
-    public void setVegetacion(String vegetacion) {
-        this.vegetacion = vegetacion;
-    }
-
-    public String getContinentes() {
-        return continentes;
-    }
-
-    public void setContinentes(String continentes) {
-        this.continentes = continentes;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 83 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 73 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -101,12 +110,12 @@ public class HabitatDTO {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final HabitatDTO other = (HabitatDTO) obj;
+        final Habitat other = (Habitat) obj;
         return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "Animal{" + "id=" + id + ", nombre=" + nombre + ", clima=" + clima + ", vegetacion=" + vegetacion + ", continentes=" + continentes+ '}';
+        return nombre;
     }
 }

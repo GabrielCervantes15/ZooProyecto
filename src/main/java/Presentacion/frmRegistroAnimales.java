@@ -5,7 +5,7 @@
 package Presentacion;
 
 
-import administrarAnimalesSubsistema.FachadaAdministrarAnimales;
+import Persistencia.FachadaAdministrarAnimales;
 import dto.AnimalDTO;
 import java.text.SimpleDateFormat;
 import java.util.List;
