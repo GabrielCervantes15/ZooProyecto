@@ -28,5 +28,5 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>com.mycompany.proyectozoo_gui.ProyectoZoo_GUI</exec.mainClass>
     </properties>
-    <name>ProyectoZoo_Presentación</name>
+    <name>ProyectoZoo_Presentacion</name>
 </project>
